@@ -20,17 +20,17 @@ java -version 如果提示java: command not found则代表Java环境未配置好
 yum install -y java 安装完成后，再次输入java -version指令检查，如下图能显示版本号则代表环境配置成功。
 2.安装Linux指令工具 安装wget,unzip,screen,vim这四个工具，否则之后的步骤输入某些命令会提示command not found。输入如下指令开始安装：
 yum -y install &amp;#34;wget&amp;#34; &amp;#34;unzip&amp;#34; &amp;#34;screen&amp;#34; &amp;#34;vim&amp;#34; 3.放行端口 部分云服务商可能对服务器的端口进行了限制，导致游戏连接服务器可能会出现connection refused（拒绝连接）的问题，需要提前把Minecraft的端口放出去，以腾讯云为例：
-3.1 配置安全组  image-20201228172435584 
+3.1 配置安全组  
 3.2 配置安全组 点击安全组名称，进入编辑页面。
- image-20201228171532988 
+ 
 添加入站规则，来源为all，协议端口为TCP:25565，即放行25565端口。
- image-20201228171034468 
+ 
 如果你的服务器还装有服务器面板等带有安全功能的软件，请一并放行25565端口。
 🏃‍♀️ 创建 1.准备好MC服务端应用程序文件 这一步相当简单，只需要注意一点：服务端版本需要和客户端版本一致。
 登录服务器后，选一个目录创建文件夹存放游戏服务端文件，例如我是/opt/mc，接着在该目录输入如下指令：
 wget https://s3.amazonaws.com/Minecraft.Download/versions/你要下载的版本号/minecraft_server.你要下载的版本号.jar 当然如果你有自己的服务端jar包可自行通过FTP等方式上传到该目录。
 2.启动服务端应用程序 按照如下指令格式启动服务器：
-java -Xms[初始启动分配内存] -Xmx[最大分配内存] -jar [jar包所在路径]/minecraft_server.</description>
+java -Xms[初始启动分配内存] -Xmx[最大分配内存] -jar [jar包所在路径]/minecraft_server.[版本号].jar nogui 例如：</description>
     </item>
     
   </channel>
