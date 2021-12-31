@@ -1,0 +1,563 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content='记录一次基友服的搭建～'><title>在Linux上配置《我的世界》服务器</title>
+
+<link rel='canonical' href='https://www.xuweilai.com/p/minecraft-server-build/'>
+
+<link rel="stylesheet" href="/scss/style.min.css"><meta property='og:title' content='在Linux上配置《我的世界》服务器'>
+<meta property='og:description' content='记录一次基友服的搭建～'>
+<meta property='og:url' content='https://www.xuweilai.com/p/minecraft-server-build/'>
+<meta property='og:site_name' content='Weilai&#39;s Blog'>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:published_time' content='2020-12-18T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2020-12-18T00:00:00&#43;00:00'/><meta property='og:image' content='https://www.xuweilai.com/p/minecraft-server-build/image-20201228171702942.png' />
+<meta name="twitter:title" content="在Linux上配置《我的世界》服务器">
+<meta name="twitter:description" content="记录一次基友服的搭建～"><meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content='https://www.xuweilai.com/p/minecraft-server-build/image-20201228171702942.png' />
+    <link rel="shortcut icon" href="favicon.ico" />
+
+    </head>
+    <body class="">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "auto");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.body.dataset.scheme = 'dark';
+        } else {
+            document.body.dataset.scheme = 'light';
+        }
+    })();
+</script><div class="container main-container flex on-phone--column extended article-page with-toolbar">
+            <aside class="sidebar left-sidebar sticky">
+    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="切换菜单">
+        <span class="hamburger-box">
+            <span class="hamburger-inner"></span>
+        </span>
+    </button>
+
+    <header class="site-info">
+        
+            <figure class="site-avatar">
+                
+                    
+                    
+                    
+                        
+                        <img src="/img/avatar_hu0b360a4230f369de58ea69cd7f255f0d_6098_300x0_resize_q75_box.jpg" width="300"
+                            height="300" class="site-logo" loading="lazy" alt="Avatar">
+                    
+                
+
+                
+                    <span class="emoji">🍉</span>
+                
+            </figure>
+        
+        <h1 class="site-name"><a href="https://www.xuweilai.com">Weilai&#39;s Blog</a></h1>
+        <h2 class="site-description">Future Is Here.</h2>
+    </header>
+
+    <ol class="menu" id="main-menu">
+        
+        
+        
+
+        <li >
+            <a href='/'>
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="5 12 3 12 12 3 21 12 19 12" />
+  <path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7" />
+  <path d="M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v6" />
+</svg>
+
+
+
+                
+                <span>Home</span>
+            </a>
+        </li>
+        
+        
+
+        <li >
+            <a href='/archives'>
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <rect x="3" y="4" width="18" height="4" rx="2" />
+  <path d="M5 8v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-10" />
+  <line x1="10" y1="12" x2="14" y2="12" />
+</svg>
+
+
+
+                
+                <span>Archives</span>
+            </a>
+        </li>
+        
+        
+
+        <li >
+            <a href='/search'>
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="10" cy="10" r="7" />
+  <line x1="21" y1="21" x2="15" y2="15" />
+</svg>
+
+
+
+                
+                <span>Search</span>
+            </a>
+        </li>
+        
+        
+
+        <li >
+            <a href='/about'>
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-user" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="7" r="4" />
+  <path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" />
+</svg>
+
+
+
+                
+                <span>About</span>
+            </a>
+        </li>
+        
+
+        
+            <li id="dark-mode-toggle">
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="8" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="16" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                <span>暗色模式</span>
+            </li>
+        
+    </ol>
+</aside>
+
+            <main class="main full-width">
+    <div id="article-toolbar">
+        <a href="https://www.xuweilai.com" class="back-home">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-chevron-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="15 6 9 12 15 18" />
+</svg>
+
+
+
+            <span>Back</span>
+        </a>
+    </div>
+
+    <article class="has-image main-article">
+    <header class="article-header">
+        <div class="article-image">
+            <a href="/p/minecraft-server-build/">
+                <img src="/p/minecraft-server-build/image-20201228171702942_hu5649d02c03393640ef9c523406f8705f_2896728_800x0_resize_box_2.png"
+                        srcset="/p/minecraft-server-build/image-20201228171702942_hu5649d02c03393640ef9c523406f8705f_2896728_800x0_resize_box_2.png 800w, /p/minecraft-server-build/image-20201228171702942_hu5649d02c03393640ef9c523406f8705f_2896728_1600x0_resize_box_2.png 1600w"
+                        width="800" 
+                        height="449" 
+                        loading="lazy"
+                        alt="Featured image of post 在Linux上配置《我的世界》服务器" />
+                
+            </a>
+        </div>
+    
+
+    <div class="article-details">
+    
+    <header class="article-category">
+        
+            <a href="/categories/%E6%88%91%E7%9A%84%E4%B8%96%E7%95%8C/" >
+                我的世界
+            </a>
+        
+            <a href="/categories/%E6%B8%B8%E6%88%8F%E6%9C%8D%E5%8A%A1%E5%99%A8/" >
+                游戏服务器
+            </a>
+        
+            <a href="/categories/linux/" >
+                Linux
+            </a>
+        
+    </header>
+    
+
+    <h2 class="article-title">
+        <a href="/p/minecraft-server-build/">在Linux上配置《我的世界》服务器</a>
+    </h2>
+
+    
+    <h3 class="article-subtitle">
+        记录一次基友服的搭建～
+    </h3>
+    <footer class="article-time">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+        <time class="article-time--published">Dec 18, 2020</time>
+    </footer></div>
+</header>
+
+    <section class="article-content">
+    <h2 id="-环境">🌍 环境</h2>
+<ul>
+<li>服务商：成都腾讯云</li>
+<li>配置：CPU1核，内存1G，带宽2M，硬盘50G</li>
+<li>系统：CentOS 7.2</li>
+</ul>
+<h2 id="-前置工作">🔧 前置工作</h2>
+<p>这些前置工作每一个都必须做好，否则就不能愉快的配置好你的游戏服务器了🥶。</p>
+<h3 id="1安装java环境">1.安装Java环境</h3>
+<p>Minecraft服务端程序的依赖环境是Java，所以服务器必须安装好Java环境才可以启动游戏服务程序。输入如下指令检查环境：</p>
+<div class="highlight"><pre class="chroma"><code class="language-sh" data-lang="sh">java -version
+</code></pre></div><p>如果提示<code>java: command not found</code>则代表Java环境未配置好，需要安装JDK；如果显示了版本号如1.8，则可以跳过此步骤。</p>
+<p>未配置好Java环境的同学请输入如下指令安装Java：</p>
+<div class="highlight"><pre class="chroma"><code class="language-sh" data-lang="sh">yum install -y java
+</code></pre></div><p>安装完成后，再次输入<code>java -version</code>指令检查，如下图能显示版本号则代表环境配置成功。</p>
+<p><img src="./image-20201228155521366.png" alt="image-20201228155521366"  /></p>
+<h3 id="2安装linux指令工具">2.安装Linux指令工具</h3>
+<p>安装<code>wget</code>,<code>unzip</code>,<code>screen</code>,<code>vim</code>这四个工具，否则之后的步骤输入某些命令会提示<code>command not found</code>。输入如下指令开始安装：</p>
+<div class="highlight"><pre class="chroma"><code class="language-shell" data-lang="shell">yum -y install <span class="s2">&#34;wget&#34;</span> <span class="s2">&#34;unzip&#34;</span> <span class="s2">&#34;screen&#34;</span> <span class="s2">&#34;vim&#34;</span>
+</code></pre></div><h3 id="3放行端口">3.放行端口</h3>
+<p>部分云服务商可能对服务器的端口进行了限制，导致游戏连接服务器可能会出现<code>connection refused（拒绝连接）</code>的问题，需要提前把Minecraft的端口放出去，以腾讯云为例：</p>
+<h4 id="31-配置安全组">3.1 配置安全组</h4>
+<p><figure style="flex-grow: 273; flex-basis: 656px">
+		<a href="/p/minecraft-server-build/image-20201228172435584.png" data-size="2564x938"><img src="/p/minecraft-server-build/image-20201228172435584.png"
+				srcset="/p/minecraft-server-build/image-20201228172435584_hu0201e4059ffc039a856356831bc44323_283337_480x0_resize_box_2.png 480w, /p/minecraft-server-build/image-20201228172435584_hu0201e4059ffc039a856356831bc44323_283337_1024x0_resize_box_2.png 1024w"
+				width="2564"
+				height="938"
+				loading="lazy"
+				alt="image-20201228172435584">
+		</a>
+		
+		<figcaption>image-20201228172435584</figcaption>
+		
+	</figure></p>
+<h4 id="32-配置安全组">3.2 配置安全组</h4>
+<p>点击安全组名称，进入编辑页面。</p>
+<p><figure style="flex-grow: 149; flex-basis: 358px">
+		<a href="/p/minecraft-server-build/image-20201228171532988.png" data-size="1732x1158"><img src="/p/minecraft-server-build/image-20201228171532988.png"
+				srcset="/p/minecraft-server-build/image-20201228171532988_hubaf6c4670baacb8a921bba814bbb3532_109798_480x0_resize_box_2.png 480w, /p/minecraft-server-build/image-20201228171532988_hubaf6c4670baacb8a921bba814bbb3532_109798_1024x0_resize_box_2.png 1024w"
+				width="1732"
+				height="1158"
+				loading="lazy"
+				alt="image-20201228171532988">
+		</a>
+		
+		<figcaption>image-20201228171532988</figcaption>
+		
+	</figure></p>
+<p>添加入站规则，来源为<code>all</code>，协议端口为<code>TCP:25565</code>，即放行25565端口。</p>
+<p><figure style="flex-grow: 252; flex-basis: 605px">
+		<a href="/p/minecraft-server-build/image-20201228171034468.png" data-size="2572x1020"><img src="/p/minecraft-server-build/image-20201228171034468.png"
+				srcset="/p/minecraft-server-build/image-20201228171034468_hu52e3439d3a00383f2d9a67d48dd68986_145963_480x0_resize_box_2.png 480w, /p/minecraft-server-build/image-20201228171034468_hu52e3439d3a00383f2d9a67d48dd68986_145963_1024x0_resize_box_2.png 1024w"
+				width="2572"
+				height="1020"
+				loading="lazy"
+				alt="image-20201228171034468">
+		</a>
+		
+		<figcaption>image-20201228171034468</figcaption>
+		
+	</figure></p>
+<p>如果你的服务器还装有服务器面板等带有安全功能的软件，请一并放行25565端口。</p>
+<h2 id="-创建">🏃‍♀️ 创建</h2>
+<h3 id="1准备好mc服务端应用程序文件">1.准备好MC服务端应用程序文件</h3>
+<p>这一步相当简单，只需要注意一点：服务端版本需要和客户端版本一致。</p>
+<p>登录服务器后，选一个目录创建文件夹存放游戏服务端文件，例如我是<code>/opt/mc</code>，接着在该目录输入如下指令：</p>
+<div class="highlight"><pre class="chroma"><code class="language-sh" data-lang="sh">wget https://s3.amazonaws.com/Minecraft.Download/versions/你要下载的版本号/minecraft_server.你要下载的版本号.jar
+</code></pre></div><p>当然如果你有自己的服务端jar包可自行通过FTP等方式上传到该目录。</p>
+<h3 id="2启动服务端应用程序">2.启动服务端应用程序</h3>
+<p>按照如下指令格式启动服务器：</p>
+<div class="highlight"><pre class="chroma"><code class="language-sh" data-lang="sh">java -Xms<span class="o">[</span>初始启动分配内存<span class="o">]</span> -Xmx<span class="o">[</span>最大分配内存<span class="o">]</span> -jar <span class="o">[</span>jar包所在路径<span class="o">]</span>/minecraft_server.<span class="o">[</span>版本号<span class="o">]</span>.jar nogui 
+</code></pre></div><p>例如：</p>
+<div class="highlight"><pre class="chroma"><code class="language-sh" data-lang="sh">java -Xms512m -Xmx1024m -jar minecraft_server.1.16.2.jar nogui
+</code></pre></div><p>启动过程中，会有一分钟左右的时间用于创建世界，请耐心等待结束。</p>
+<p>关于最后一个参数<code>nogui</code>的使用是为禁用<code>GUI</code>界面，节省系统内存。</p>
+<h4 id="运行失败的解决方案">运行失败的解决方案：</h4>
+<p>我们在第一次运行完jar包后，无论是否运行成功，都能发现当前目录下多出了一堆文件，运行失败的时候其实就是配置除了一点问题。我们在当前目录找一下文件<strong>eula.txt</strong>：</p>
+<div class="highlight"><pre class="chroma"><code class="language-sh" data-lang="sh">vim eula.txt
+</code></pre></div><p>按<code>i</code>键进入编辑模式，用方向键找到如下一行并修改成：</p>
+<div class="highlight"><pre class="chroma"><code class="language-sh" data-lang="sh"><span class="nv">eula</span><span class="o">=</span><span class="nb">false</span>
+</code></pre></div><p>接着按<code>esc</code>键退出编辑模式，再输入<code>:wq</code>保存修改并退出，最后尝试重新运行一次启动指令即可。</p>
+<h3 id="3连接服务器">3.连接服务器</h3>
+<p>在游戏客户端里直接输入你服务器的公网地址并连接即可，无需输入端口号。</p>
+<h2 id="-完善">💇‍♂️ 完善</h2>
+<p>虽然创建游戏服务端的步骤很简单，但我们还有一些地方可以优化，虽然这些是非必要的，但完善有助于我们更稳定的游玩游戏。</p>
+<h3 id="1关闭正版验证">1.关闭正版验证</h3>
+<p>正版游戏启动器玩家可以无视这步。想要非正版游戏启动器玩家加入服务器是必须完成这一步的。用<code>vim</code>命令对<code>server.properties</code>文件进行编辑：</p>
+<div class="highlight"><pre class="chroma"><code class="language-sh" data-lang="sh">vim server.properties
+</code></pre></div><p>将<code>online-mode:true</code>这一行修改成<code>false</code>。</p>
+<p>如何用vim命令修改文件内容请参见运行失败那一步的步骤或自行搜索。</p>
+<p><figure style="flex-grow: 106; flex-basis: 256px">
+		<a href="/p/minecraft-server-build/image-20201228162433317.png" data-size="1556x1456"><img src="/p/minecraft-server-build/image-20201228162433317.png"
+				srcset="/p/minecraft-server-build/image-20201228162433317_hu56ac9bd80567cf16e6d3710c8ddbf186_238468_480x0_resize_box_2.png 480w, /p/minecraft-server-build/image-20201228162433317_hu56ac9bd80567cf16e6d3710c8ddbf186_238468_1024x0_resize_box_2.png 1024w"
+				width="1556"
+				height="1456"
+				loading="lazy"
+				alt="image-20201228162433317">
+		</a>
+		
+		<figcaption>image-20201228162433317</figcaption>
+		
+	</figure></p>
+<p>其他的配置项可自行搜索了解，了解每个配置项有助于你更好的管理服务器。</p>
+<h3 id="2创建游戏启动执行脚本">2.创建游戏启动执行脚本</h3>
+<p>每次启动游戏服务程序时都手打很长一串的java指令是极其不明智的，我们可以将java启动指令封装起来。</p>
+<p>用<code>vim</code>命令创建一个文件<code>start-mc.sh</code>，并把java指令输入进去：</p>
+<div class="highlight"><pre class="chroma"><code class="language-sh" data-lang="sh">java -Xms512m -Xmx1024m -jar minecraft_server.1.16.2.jar nogui
+</code></pre></div><p>保存并退出，下次启动游戏就不必再打一大长串的java指令了，只需要输入：</p>
+<div class="highlight"><pre class="chroma"><code class="language-sh" data-lang="sh">bash start-mc.sh
+</code></pre></div><p>即可启动服务器.</p>
+<h3 id="3保持服务会话">3.保持服务会话</h3>
+<p>一般服务器和ssh工具都会有连接会话的超时设置，在一段时间没有在服务器上操作后，会自动断开ssh会话，这时这个会话中的任务就会被杀掉，那小伙伴们游戏玩着玩着就<strong>与服务器断开连接</strong>了。
+在前置工作中我们已经安装好了<code>screen</code>工具，通过这个工具可以解决上述问题，至于原理你可以理解成原本只能在前台运行的程序现在可以挂到后台运行了。</p>
+<p>新建一个名为<code>mymcs</code>的<code>screen</code>会话（注意区分大小写）：</p>
+<div class="highlight"><pre class="chroma"><code class="language-sh" data-lang="sh">screen -S mymcs
+</code></pre></div><p>再把启动指令挂上去，例如输入上一步的启动游戏脚本的指令并回车执行（java启动指令也行，反正需要一个可执行的指令）：</p>
+<div class="highlight"><pre class="chroma"><code class="language-sh" data-lang="sh">bash start-mc.sh
+</code></pre></div><p>游戏服务程序启动完成之后，可以输入<code>Ctrl + A + D</code>的组合键退出会话（不会结束游戏的服务端程序），从而在服务器上干别的事情。</p>
+<p>如果你想要重新连接这个会话，输入这个指令重新连接会话：</p>
+<div class="highlight"><pre class="chroma"><code class="language-sh" data-lang="sh">screen -R mymcs
+</code></pre></div><h2 id="-enjoy">🥳 Enjoy!</h2>
+<p>教程到此结束，享受你的游戏吧！</p>
+<p><figure style="flex-grow: 178; flex-basis: 427px">
+		<a href="/p/minecraft-server-build/image-20201228171702942.png" data-size="1695x951"><img src="/p/minecraft-server-build/image-20201228171702942.png"
+				srcset="/p/minecraft-server-build/image-20201228171702942_hu5649d02c03393640ef9c523406f8705f_2896728_480x0_resize_box_2.png 480w, /p/minecraft-server-build/image-20201228171702942_hu5649d02c03393640ef9c523406f8705f_2896728_1024x0_resize_box_2.png 1024w"
+				width="1695"
+				height="951"
+				loading="lazy"
+				alt="image-20201228171702942">
+		</a>
+		
+		<figcaption>image-20201228171702942</figcaption>
+		
+	</figure></p>
+
+</section>
+
+
+    <footer class="article-footer">
+    
+
+    
+    <section class="article-copyright">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copyright" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <path d="M14.5 9a3.5 4 0 1 0 0 6" />
+</svg>
+
+
+
+        <span>Licensed under CC BY-NC-SA 4.0</span>
+    </section>
+    </footer>
+
+    
+</article>
+
+    <aside class="related-contents--wrapper">
+    
+    
+</aside>
+
+
+    
+        
+    <div class="disqus-container">
+    <div id="disqus_thread"></div>
+<script type="application/javascript">
+    var disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "hugo-theme-stack" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</div>
+
+<style>
+    .disqus-container {
+        background-color: var(--card-background);
+        border-radius: var(--card-border-radius);
+        box-shadow: var(--shadow-l1);
+        padding: var(--card-padding);
+    }
+</style>
+
+<script>
+    window.addEventListener('onColorSchemeChange', (e) => {
+        if (DISQUS) {
+            DISQUS.reset({
+                reload: true
+            });
+        }
+    })
+</script>
+
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+            2014 - 
+        
+        2021 Weilai&#39;s Blog
+    </section>
+    
+    <section class="powerby">
+        Built with <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> <br />
+        Theme <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="2.2.0">Stack</a></b> designed by <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a>
+    </section>
+</footer>
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer="true"
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
+                defer="true"
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.css"integrity="sha256-c0uckgykQ9v5k&#43;IqViZOZKc47Jn7KQil4/MP3ySA3F8="crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.css"integrity="sha256-SBLU4vv6CA6lHsZ1XyTdhyjJxCjPif/TRkjnsyGAGnE="crossorigin="anonymous"
+            >
+            </main>
+        </div>
+        <script 
+                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.5/dist/vibrant.min.js"integrity="sha256-5NovOZc4iwiAWTYIFiIM7DxKUXKWvpVEuMEPLzcm5/g="crossorigin="anonymous"
+                defer="false"
+                >
+            </script><script type="text/javascript" src="/ts/main.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+
+    </body>
+</html>

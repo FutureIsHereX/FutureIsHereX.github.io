@@ -6,6 +6,148 @@
         <description>Recent content on Weilai&#39;s Blog</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>zh-CN</language>
-        <lastBuildDate>Tue, 28 May 2019 00:00:00 +0000</lastBuildDate><atom:link href="https://www.xuweilai.com/index.xml" rel="self" type="application/rss+xml" />
+        <lastBuildDate>Fri, 18 Dec 2020 00:00:00 +0000</lastBuildDate><atom:link href="https://www.xuweilai.com/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>在Linux上配置《我的世界》服务器</title>
+        <link>https://www.xuweilai.com/p/minecraft-server-build/</link>
+        <pubDate>Fri, 18 Dec 2020 00:00:00 +0000</pubDate>
+        
+        <guid>https://www.xuweilai.com/p/minecraft-server-build/</guid>
+        <description>&lt;img src="https://www.xuweilai.com/p/minecraft-server-build/image-20201228171702942.png" alt="Featured image of post 在Linux上配置《我的世界》服务器" /&gt;&lt;h2 id=&#34;-环境&#34;&gt;🌍 环境&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;服务商：成都腾讯云&lt;/li&gt;
+&lt;li&gt;配置：CPU1核，内存1G，带宽2M，硬盘50G&lt;/li&gt;
+&lt;li&gt;系统：CentOS 7.2&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;-前置工作&#34;&gt;🔧 前置工作&lt;/h2&gt;
+&lt;p&gt;这些前置工作每一个都必须做好，否则就不能愉快的配置好你的游戏服务器了🥶。&lt;/p&gt;
+&lt;h3 id=&#34;1安装java环境&#34;&gt;1.安装Java环境&lt;/h3&gt;
+&lt;p&gt;Minecraft服务端程序的依赖环境是Java，所以服务器必须安装好Java环境才可以启动游戏服务程序。输入如下指令检查环境：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-sh&#34; data-lang=&#34;sh&#34;&gt;java -version
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;如果提示&lt;code&gt;java: command not found&lt;/code&gt;则代表Java环境未配置好，需要安装JDK；如果显示了版本号如1.8，则可以跳过此步骤。&lt;/p&gt;
+&lt;p&gt;未配置好Java环境的同学请输入如下指令安装Java：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-sh&#34; data-lang=&#34;sh&#34;&gt;yum install -y java
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;安装完成后，再次输入&lt;code&gt;java -version&lt;/code&gt;指令检查，如下图能显示版本号则代表环境配置成功。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;./image-20201228155521366.png&#34; alt=&#34;image-20201228155521366&#34;  /&gt;&lt;/p&gt;
+&lt;h3 id=&#34;2安装linux指令工具&#34;&gt;2.安装Linux指令工具&lt;/h3&gt;
+&lt;p&gt;安装&lt;code&gt;wget&lt;/code&gt;,&lt;code&gt;unzip&lt;/code&gt;,&lt;code&gt;screen&lt;/code&gt;,&lt;code&gt;vim&lt;/code&gt;这四个工具，否则之后的步骤输入某些命令会提示&lt;code&gt;command not found&lt;/code&gt;。输入如下指令开始安装：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;yum -y install &lt;span class=&#34;s2&#34;&gt;&amp;#34;wget&amp;#34;&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;unzip&amp;#34;&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;screen&amp;#34;&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;vim&amp;#34;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3 id=&#34;3放行端口&#34;&gt;3.放行端口&lt;/h3&gt;
+&lt;p&gt;部分云服务商可能对服务器的端口进行了限制，导致游戏连接服务器可能会出现&lt;code&gt;connection refused（拒绝连接）&lt;/code&gt;的问题，需要提前把Minecraft的端口放出去，以腾讯云为例：&lt;/p&gt;
+&lt;h4 id=&#34;31-配置安全组&#34;&gt;3.1 配置安全组&lt;/h4&gt;
+&lt;p&gt;&lt;figure style=&#34;flex-grow: 273; flex-basis: 656px&#34;&gt;
+		&lt;a href=&#34;https://www.xuweilai.com/p/minecraft-server-build/image-20201228172435584.png&#34; data-size=&#34;2564x938&#34;&gt;&lt;img src=&#34;https://www.xuweilai.com/p/minecraft-server-build/image-20201228172435584.png&#34;
+				srcset=&#34;https://www.xuweilai.com/p/minecraft-server-build/image-20201228172435584_hu0201e4059ffc039a856356831bc44323_283337_480x0_resize_box_2.png 480w, https://www.xuweilai.com/p/minecraft-server-build/image-20201228172435584_hu0201e4059ffc039a856356831bc44323_283337_1024x0_resize_box_2.png 1024w&#34;
+				width=&#34;2564&#34;
+				height=&#34;938&#34;
+				loading=&#34;lazy&#34;
+				alt=&#34;image-20201228172435584&#34;&gt;
+		&lt;/a&gt;
+		
+		&lt;figcaption&gt;image-20201228172435584&lt;/figcaption&gt;
+		
+	&lt;/figure&gt;&lt;/p&gt;
+&lt;h4 id=&#34;32-配置安全组&#34;&gt;3.2 配置安全组&lt;/h4&gt;
+&lt;p&gt;点击安全组名称，进入编辑页面。&lt;/p&gt;
+&lt;p&gt;&lt;figure style=&#34;flex-grow: 149; flex-basis: 358px&#34;&gt;
+		&lt;a href=&#34;https://www.xuweilai.com/p/minecraft-server-build/image-20201228171532988.png&#34; data-size=&#34;1732x1158&#34;&gt;&lt;img src=&#34;https://www.xuweilai.com/p/minecraft-server-build/image-20201228171532988.png&#34;
+				srcset=&#34;https://www.xuweilai.com/p/minecraft-server-build/image-20201228171532988_hubaf6c4670baacb8a921bba814bbb3532_109798_480x0_resize_box_2.png 480w, https://www.xuweilai.com/p/minecraft-server-build/image-20201228171532988_hubaf6c4670baacb8a921bba814bbb3532_109798_1024x0_resize_box_2.png 1024w&#34;
+				width=&#34;1732&#34;
+				height=&#34;1158&#34;
+				loading=&#34;lazy&#34;
+				alt=&#34;image-20201228171532988&#34;&gt;
+		&lt;/a&gt;
+		
+		&lt;figcaption&gt;image-20201228171532988&lt;/figcaption&gt;
+		
+	&lt;/figure&gt;&lt;/p&gt;
+&lt;p&gt;添加入站规则，来源为&lt;code&gt;all&lt;/code&gt;，协议端口为&lt;code&gt;TCP:25565&lt;/code&gt;，即放行25565端口。&lt;/p&gt;
+&lt;p&gt;&lt;figure style=&#34;flex-grow: 252; flex-basis: 605px&#34;&gt;
+		&lt;a href=&#34;https://www.xuweilai.com/p/minecraft-server-build/image-20201228171034468.png&#34; data-size=&#34;2572x1020&#34;&gt;&lt;img src=&#34;https://www.xuweilai.com/p/minecraft-server-build/image-20201228171034468.png&#34;
+				srcset=&#34;https://www.xuweilai.com/p/minecraft-server-build/image-20201228171034468_hu52e3439d3a00383f2d9a67d48dd68986_145963_480x0_resize_box_2.png 480w, https://www.xuweilai.com/p/minecraft-server-build/image-20201228171034468_hu52e3439d3a00383f2d9a67d48dd68986_145963_1024x0_resize_box_2.png 1024w&#34;
+				width=&#34;2572&#34;
+				height=&#34;1020&#34;
+				loading=&#34;lazy&#34;
+				alt=&#34;image-20201228171034468&#34;&gt;
+		&lt;/a&gt;
+		
+		&lt;figcaption&gt;image-20201228171034468&lt;/figcaption&gt;
+		
+	&lt;/figure&gt;&lt;/p&gt;
+&lt;p&gt;如果你的服务器还装有服务器面板等带有安全功能的软件，请一并放行25565端口。&lt;/p&gt;
+&lt;h2 id=&#34;-创建&#34;&gt;🏃‍♀️ 创建&lt;/h2&gt;
+&lt;h3 id=&#34;1准备好mc服务端应用程序文件&#34;&gt;1.准备好MC服务端应用程序文件&lt;/h3&gt;
+&lt;p&gt;这一步相当简单，只需要注意一点：服务端版本需要和客户端版本一致。&lt;/p&gt;
+&lt;p&gt;登录服务器后，选一个目录创建文件夹存放游戏服务端文件，例如我是&lt;code&gt;/opt/mc&lt;/code&gt;，接着在该目录输入如下指令：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-sh&#34; data-lang=&#34;sh&#34;&gt;wget https://s3.amazonaws.com/Minecraft.Download/versions/你要下载的版本号/minecraft_server.你要下载的版本号.jar
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;当然如果你有自己的服务端jar包可自行通过FTP等方式上传到该目录。&lt;/p&gt;
+&lt;h3 id=&#34;2启动服务端应用程序&#34;&gt;2.启动服务端应用程序&lt;/h3&gt;
+&lt;p&gt;按照如下指令格式启动服务器：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-sh&#34; data-lang=&#34;sh&#34;&gt;java -Xms&lt;span class=&#34;o&#34;&gt;[&lt;/span&gt;初始启动分配内存&lt;span class=&#34;o&#34;&gt;]&lt;/span&gt; -Xmx&lt;span class=&#34;o&#34;&gt;[&lt;/span&gt;最大分配内存&lt;span class=&#34;o&#34;&gt;]&lt;/span&gt; -jar &lt;span class=&#34;o&#34;&gt;[&lt;/span&gt;jar包所在路径&lt;span class=&#34;o&#34;&gt;]&lt;/span&gt;/minecraft_server.&lt;span class=&#34;o&#34;&gt;[&lt;/span&gt;版本号&lt;span class=&#34;o&#34;&gt;]&lt;/span&gt;.jar nogui 
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;例如：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-sh&#34; data-lang=&#34;sh&#34;&gt;java -Xms512m -Xmx1024m -jar minecraft_server.1.16.2.jar nogui
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;启动过程中，会有一分钟左右的时间用于创建世界，请耐心等待结束。&lt;/p&gt;
+&lt;p&gt;关于最后一个参数&lt;code&gt;nogui&lt;/code&gt;的使用是为禁用&lt;code&gt;GUI&lt;/code&gt;界面，节省系统内存。&lt;/p&gt;
+&lt;h4 id=&#34;运行失败的解决方案&#34;&gt;运行失败的解决方案：&lt;/h4&gt;
+&lt;p&gt;我们在第一次运行完jar包后，无论是否运行成功，都能发现当前目录下多出了一堆文件，运行失败的时候其实就是配置除了一点问题。我们在当前目录找一下文件&lt;strong&gt;eula.txt&lt;/strong&gt;：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-sh&#34; data-lang=&#34;sh&#34;&gt;vim eula.txt
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;按&lt;code&gt;i&lt;/code&gt;键进入编辑模式，用方向键找到如下一行并修改成：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-sh&#34; data-lang=&#34;sh&#34;&gt;&lt;span class=&#34;nv&#34;&gt;eula&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;nb&#34;&gt;false&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;接着按&lt;code&gt;esc&lt;/code&gt;键退出编辑模式，再输入&lt;code&gt;:wq&lt;/code&gt;保存修改并退出，最后尝试重新运行一次启动指令即可。&lt;/p&gt;
+&lt;h3 id=&#34;3连接服务器&#34;&gt;3.连接服务器&lt;/h3&gt;
+&lt;p&gt;在游戏客户端里直接输入你服务器的公网地址并连接即可，无需输入端口号。&lt;/p&gt;
+&lt;h2 id=&#34;-完善&#34;&gt;💇‍♂️ 完善&lt;/h2&gt;
+&lt;p&gt;虽然创建游戏服务端的步骤很简单，但我们还有一些地方可以优化，虽然这些是非必要的，但完善有助于我们更稳定的游玩游戏。&lt;/p&gt;
+&lt;h3 id=&#34;1关闭正版验证&#34;&gt;1.关闭正版验证&lt;/h3&gt;
+&lt;p&gt;正版游戏启动器玩家可以无视这步。想要非正版游戏启动器玩家加入服务器是必须完成这一步的。用&lt;code&gt;vim&lt;/code&gt;命令对&lt;code&gt;server.properties&lt;/code&gt;文件进行编辑：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-sh&#34; data-lang=&#34;sh&#34;&gt;vim server.properties
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;将&lt;code&gt;online-mode:true&lt;/code&gt;这一行修改成&lt;code&gt;false&lt;/code&gt;。&lt;/p&gt;
+&lt;p&gt;如何用vim命令修改文件内容请参见运行失败那一步的步骤或自行搜索。&lt;/p&gt;
+&lt;p&gt;&lt;figure style=&#34;flex-grow: 106; flex-basis: 256px&#34;&gt;
+		&lt;a href=&#34;https://www.xuweilai.com/p/minecraft-server-build/image-20201228162433317.png&#34; data-size=&#34;1556x1456&#34;&gt;&lt;img src=&#34;https://www.xuweilai.com/p/minecraft-server-build/image-20201228162433317.png&#34;
+				srcset=&#34;https://www.xuweilai.com/p/minecraft-server-build/image-20201228162433317_hu56ac9bd80567cf16e6d3710c8ddbf186_238468_480x0_resize_box_2.png 480w, https://www.xuweilai.com/p/minecraft-server-build/image-20201228162433317_hu56ac9bd80567cf16e6d3710c8ddbf186_238468_1024x0_resize_box_2.png 1024w&#34;
+				width=&#34;1556&#34;
+				height=&#34;1456&#34;
+				loading=&#34;lazy&#34;
+				alt=&#34;image-20201228162433317&#34;&gt;
+		&lt;/a&gt;
+		
+		&lt;figcaption&gt;image-20201228162433317&lt;/figcaption&gt;
+		
+	&lt;/figure&gt;&lt;/p&gt;
+&lt;p&gt;其他的配置项可自行搜索了解，了解每个配置项有助于你更好的管理服务器。&lt;/p&gt;
+&lt;h3 id=&#34;2创建游戏启动执行脚本&#34;&gt;2.创建游戏启动执行脚本&lt;/h3&gt;
+&lt;p&gt;每次启动游戏服务程序时都手打很长一串的java指令是极其不明智的，我们可以将java启动指令封装起来。&lt;/p&gt;
+&lt;p&gt;用&lt;code&gt;vim&lt;/code&gt;命令创建一个文件&lt;code&gt;start-mc.sh&lt;/code&gt;，并把java指令输入进去：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-sh&#34; data-lang=&#34;sh&#34;&gt;java -Xms512m -Xmx1024m -jar minecraft_server.1.16.2.jar nogui
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;保存并退出，下次启动游戏就不必再打一大长串的java指令了，只需要输入：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-sh&#34; data-lang=&#34;sh&#34;&gt;bash start-mc.sh
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;即可启动服务器.&lt;/p&gt;
+&lt;h3 id=&#34;3保持服务会话&#34;&gt;3.保持服务会话&lt;/h3&gt;
+&lt;p&gt;一般服务器和ssh工具都会有连接会话的超时设置，在一段时间没有在服务器上操作后，会自动断开ssh会话，这时这个会话中的任务就会被杀掉，那小伙伴们游戏玩着玩着就&lt;strong&gt;与服务器断开连接&lt;/strong&gt;了。
+在前置工作中我们已经安装好了&lt;code&gt;screen&lt;/code&gt;工具，通过这个工具可以解决上述问题，至于原理你可以理解成原本只能在前台运行的程序现在可以挂到后台运行了。&lt;/p&gt;
+&lt;p&gt;新建一个名为&lt;code&gt;mymcs&lt;/code&gt;的&lt;code&gt;screen&lt;/code&gt;会话（注意区分大小写）：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-sh&#34; data-lang=&#34;sh&#34;&gt;screen -S mymcs
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;再把启动指令挂上去，例如输入上一步的启动游戏脚本的指令并回车执行（java启动指令也行，反正需要一个可执行的指令）：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-sh&#34; data-lang=&#34;sh&#34;&gt;bash start-mc.sh
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;游戏服务程序启动完成之后，可以输入&lt;code&gt;Ctrl + A + D&lt;/code&gt;的组合键退出会话（不会结束游戏的服务端程序），从而在服务器上干别的事情。&lt;/p&gt;
+&lt;p&gt;如果你想要重新连接这个会话，输入这个指令重新连接会话：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-sh&#34; data-lang=&#34;sh&#34;&gt;screen -R mymcs
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;-enjoy&#34;&gt;🥳 Enjoy!&lt;/h2&gt;
+&lt;p&gt;教程到此结束，享受你的游戏吧！&lt;/p&gt;
+&lt;p&gt;&lt;figure style=&#34;flex-grow: 178; flex-basis: 427px&#34;&gt;
+		&lt;a href=&#34;https://www.xuweilai.com/p/minecraft-server-build/image-20201228171702942.png&#34; data-size=&#34;1695x951&#34;&gt;&lt;img src=&#34;https://www.xuweilai.com/p/minecraft-server-build/image-20201228171702942.png&#34;
+				srcset=&#34;https://www.xuweilai.com/p/minecraft-server-build/image-20201228171702942_hu5649d02c03393640ef9c523406f8705f_2896728_480x0_resize_box_2.png 480w, https://www.xuweilai.com/p/minecraft-server-build/image-20201228171702942_hu5649d02c03393640ef9c523406f8705f_2896728_1024x0_resize_box_2.png 1024w&#34;
+				width=&#34;1695&#34;
+				height=&#34;951&#34;
+				loading=&#34;lazy&#34;
+				alt=&#34;image-20201228171702942&#34;&gt;
+		&lt;/a&gt;
+		
+		&lt;figcaption&gt;image-20201228171702942&lt;/figcaption&gt;
+		
+	&lt;/figure&gt;&lt;/p&gt;
+</description>
+        </item>
+        
     </channel>
 </rss>
