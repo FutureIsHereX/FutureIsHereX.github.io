@@ -36,7 +36,7 @@
 &lt;h4 id=&#34;31-配置安全组&#34;&gt;3.1 配置安全组&lt;/h4&gt;
 &lt;p&gt;&lt;figure style=&#34;flex-grow: 273; flex-basis: 656px&#34;&gt;
 		&lt;a href=&#34;https://www.xuweilai.com/p/minecraft-server-build/image-20201228172435584.png&#34; data-size=&#34;2564x938&#34;&gt;&lt;img src=&#34;https://www.xuweilai.com/p/minecraft-server-build/image-20201228172435584.png&#34;
-				srcset=&#34;https://www.xuweilai.com/p/minecraft-server-build/image-20201228172435584_hu0201e4059ffc039a856356831bc44323_283337_480x0_resize_box_2.png 480w, https://www.xuweilai.com/p/minecraft-server-build/image-20201228172435584_hu0201e4059ffc039a856356831bc44323_283337_1024x0_resize_box_2.png 1024w&#34;
+				srcset=&#34;https://www.xuweilai.com/p/minecraft-server-build/image-20201228172435584_hu724ee00822c50926627a6b6ae148ec48_75865_480x0_resize_box_2.png 480w, https://www.xuweilai.com/p/minecraft-server-build/image-20201228172435584_hu724ee00822c50926627a6b6ae148ec48_75865_1024x0_resize_box_2.png 1024w&#34;
 				width=&#34;2564&#34;
 				height=&#34;938&#34;
 				loading=&#34;lazy&#34;
@@ -48,7 +48,7 @@
 &lt;p&gt;点击安全组名称，进入编辑页面。&lt;/p&gt;
 &lt;p&gt;&lt;figure style=&#34;flex-grow: 149; flex-basis: 358px&#34;&gt;
 		&lt;a href=&#34;https://www.xuweilai.com/p/minecraft-server-build/image-20201228171532988.png&#34; data-size=&#34;1732x1158&#34;&gt;&lt;img src=&#34;https://www.xuweilai.com/p/minecraft-server-build/image-20201228171532988.png&#34;
-				srcset=&#34;https://www.xuweilai.com/p/minecraft-server-build/image-20201228171532988_hubaf6c4670baacb8a921bba814bbb3532_109798_480x0_resize_box_2.png 480w, https://www.xuweilai.com/p/minecraft-server-build/image-20201228171532988_hubaf6c4670baacb8a921bba814bbb3532_109798_1024x0_resize_box_2.png 1024w&#34;
+				srcset=&#34;https://www.xuweilai.com/p/minecraft-server-build/image-20201228171532988_hu3f61393cf484f361ae0b8900e2e2e7b0_24518_480x0_resize_box_2.png 480w, https://www.xuweilai.com/p/minecraft-server-build/image-20201228171532988_hu3f61393cf484f361ae0b8900e2e2e7b0_24518_1024x0_resize_box_2.png 1024w&#34;
 				width=&#34;1732&#34;
 				height=&#34;1158&#34;
 				loading=&#34;lazy&#34;
@@ -59,7 +59,7 @@
 &lt;p&gt;添加入站规则，来源为&lt;code&gt;all&lt;/code&gt;，协议端口为&lt;code&gt;TCP:25565&lt;/code&gt;，即放行25565端口。&lt;/p&gt;
 &lt;p&gt;&lt;figure style=&#34;flex-grow: 252; flex-basis: 605px&#34;&gt;
 		&lt;a href=&#34;https://www.xuweilai.com/p/minecraft-server-build/image-20201228171034468.png&#34; data-size=&#34;2572x1020&#34;&gt;&lt;img src=&#34;https://www.xuweilai.com/p/minecraft-server-build/image-20201228171034468.png&#34;
-				srcset=&#34;https://www.xuweilai.com/p/minecraft-server-build/image-20201228171034468_hu52e3439d3a00383f2d9a67d48dd68986_145963_480x0_resize_box_2.png 480w, https://www.xuweilai.com/p/minecraft-server-build/image-20201228171034468_hu52e3439d3a00383f2d9a67d48dd68986_145963_1024x0_resize_box_2.png 1024w&#34;
+				srcset=&#34;https://www.xuweilai.com/p/minecraft-server-build/image-20201228171034468_hu3ce7e3ee39074a5b7cf36bd2ad3c7eda_35838_480x0_resize_box_2.png 480w, https://www.xuweilai.com/p/minecraft-server-build/image-20201228171034468_hu3ce7e3ee39074a5b7cf36bd2ad3c7eda_35838_1024x0_resize_box_2.png 1024w&#34;
 				width=&#34;2572&#34;
 				height=&#34;1020&#34;
 				loading=&#34;lazy&#34;
@@ -98,7 +98,7 @@
 &lt;p&gt;如何用vim命令修改文件内容请参见运行失败那一步的步骤或自行搜索。&lt;/p&gt;
 &lt;p&gt;&lt;figure style=&#34;flex-grow: 106; flex-basis: 256px&#34;&gt;
 		&lt;a href=&#34;https://www.xuweilai.com/p/minecraft-server-build/image-20201228162433317.png&#34; data-size=&#34;1556x1456&#34;&gt;&lt;img src=&#34;https://www.xuweilai.com/p/minecraft-server-build/image-20201228162433317.png&#34;
-				srcset=&#34;https://www.xuweilai.com/p/minecraft-server-build/image-20201228162433317_hu56ac9bd80567cf16e6d3710c8ddbf186_238468_480x0_resize_box_2.png 480w, https://www.xuweilai.com/p/minecraft-server-build/image-20201228162433317_hu56ac9bd80567cf16e6d3710c8ddbf186_238468_1024x0_resize_box_2.png 1024w&#34;
+				srcset=&#34;https://www.xuweilai.com/p/minecraft-server-build/image-20201228162433317_huf7a89fd63ff04e5d3f11a058aeee2c05_59332_480x0_resize_box_2.png 480w, https://www.xuweilai.com/p/minecraft-server-build/image-20201228162433317_huf7a89fd63ff04e5d3f11a058aeee2c05_59332_1024x0_resize_box_2.png 1024w&#34;
 				width=&#34;1556&#34;
 				height=&#34;1456&#34;
 				loading=&#34;lazy&#34;
@@ -130,7 +130,7 @@
 &lt;p&gt;教程到此结束，享受你的游戏吧！&lt;/p&gt;
 &lt;p&gt;&lt;figure style=&#34;flex-grow: 178; flex-basis: 427px&#34;&gt;
 		&lt;a href=&#34;https://www.xuweilai.com/p/minecraft-server-build/image-20201228171702942.png&#34; data-size=&#34;1695x951&#34;&gt;&lt;img src=&#34;https://www.xuweilai.com/p/minecraft-server-build/image-20201228171702942.png&#34;
-				srcset=&#34;https://www.xuweilai.com/p/minecraft-server-build/image-20201228171702942_hu5649d02c03393640ef9c523406f8705f_2896728_480x0_resize_box_2.png 480w, https://www.xuweilai.com/p/minecraft-server-build/image-20201228171702942_hu5649d02c03393640ef9c523406f8705f_2896728_1024x0_resize_box_2.png 1024w&#34;
+				srcset=&#34;https://www.xuweilai.com/p/minecraft-server-build/image-20201228171702942_hue6d612fb35469e650b5db25197ee5068_491915_480x0_resize_box_2.png 480w, https://www.xuweilai.com/p/minecraft-server-build/image-20201228171702942_hue6d612fb35469e650b5db25197ee5068_491915_1024x0_resize_box_2.png 1024w&#34;
 				width=&#34;1695&#34;
 				height=&#34;951&#34;
 				loading=&#34;lazy&#34;
